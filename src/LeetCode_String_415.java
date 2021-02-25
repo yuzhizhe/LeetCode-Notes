@@ -1,6 +1,6 @@
 import java.util.regex.Pattern;
 
-public class LeetCode_Stack_415 {
+public class LeetCode_String_415 {
         public static String addStrings(String num1, String num2) {
             StringBuilder res = new StringBuilder("");
             int i = num1.length() - 1, j = num2.length() - 1, carry = 0;

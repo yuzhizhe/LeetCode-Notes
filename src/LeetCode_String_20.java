@@ -1,6 +1,6 @@
 import java.util.Stack;
 
-public class LeetCode_Stack_20 {
+public class LeetCode_String_20 {
     public static boolean isValid(String s) {
         if (s == null || s.length() == 0){
             return false;
