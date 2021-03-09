@@ -1,9 +1,6 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
-public class LeetCode_Tree_257 {
+public class LeetCode_Tree_501 {
     public static class TreeNode{
         int val;
         TreeNode left;
@@ -50,40 +47,46 @@ public class LeetCode_Tree_257 {
         }
     }
 
-    public static List<String> binaryTreePaths(TreeNode root) {
-        if (root == null){
-            return list;
+    public static int[] findMode(TreeNode root) {
+        helper(root);
+        List<Integer> res = new ArrayList<>();
+        int max = 0;
+        for (int key : map.keySet()){
+            System.out.println("kye:"+key+"value:"+map.get(key));
+            if (map.get(key) >= max){
+                max = map.get(key);
+                //res.add(key);
+            }
         }
-        helper(root,new String());
-        return list;
+        for (int key : map.keySet()){
+            //System.out.println("kye:"+key+"value:"+map.get(key));
+            if (map.get(key) == max){
+                //max = map.get(key);
+                res.add(key);
+            }
+        }
+        return res.stream().mapToInt(Integer::intValue).toArray();
     }
 
-    static List<String> list = new ArrayList<>();
-    public static void helper(TreeNode root,String sum) {
+    static HashMap<Integer, Integer> map = new HashMap<>();
+    public static void helper(TreeNode root){
         if (root == null){
             return;
         }
-        StringBuffer pathSB = new StringBuffer(sum);
-        pathSB.append(root.val);
-        if (root.left == null && root.right == null){
-            list.add(pathSB.toString());
-            return;
-        }else {
-            pathSB.append("->");  // 当前节点不是叶子节点，继续递归遍历
-            helper(root.left, pathSB.toString());
-            helper(root.right, pathSB.toString());
-        }
+        map.put(root.val,map.getOrDefault(root.val,0)+1);
+        helper(root.left);
+        helper(root.right);
     }
 
     public static void main(String[] args) {
         TreeNode root = new TreeNode(6);
-        root.left = new TreeNode(3);
-        //root.right = new TreeNode(5,new TreeNode(4),new TreeNode(2));
+        root.left = new TreeNode(3,null,new TreeNode(2,null,new TreeNode(1)));
+        root.right = new TreeNode(5, new TreeNode(2),new TreeNode(4));
         levelPrint(root);
-        List<String> list = binaryTreePaths(root);
-        for(String i : list){
-            System.out.println(i);
+        int[] S = findMode(root);
+        for(int i : S){
+            System.out.print(i);
         }
-        //System.out.print(list.size());
+        //System.out.print(hasPathSum(root,10));
     }
 }

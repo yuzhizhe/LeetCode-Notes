@@ -1,9 +1,6 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
-public class LeetCode_Tree_257 {
+public class LeetCode_Tree_530 {
     public static class TreeNode{
         int val;
         TreeNode left;
@@ -50,40 +47,33 @@ public class LeetCode_Tree_257 {
         }
     }
 
-    public static List<String> binaryTreePaths(TreeNode root) {
-        if (root == null){
-            return list;
+    public static int getMinimumDifference(TreeNode root) {
+        helper(root);
+        for (int i = 0; i < list.size()-1; i++){
+            int mMin = Math.abs(list.get(i)- list.get(i+1));
+            if(mMin<min){
+                min = mMin;
+            }
         }
-        helper(root,new String());
-        return list;
+        return min;
     }
-
-    static List<String> list = new ArrayList<>();
-    public static void helper(TreeNode root,String sum) {
+    static List<Integer> list = new ArrayList<>();
+    static int min = Integer.MAX_VALUE;
+    public static void helper(TreeNode root){
         if (root == null){
             return;
         }
-        StringBuffer pathSB = new StringBuffer(sum);
-        pathSB.append(root.val);
-        if (root.left == null && root.right == null){
-            list.add(pathSB.toString());
-            return;
-        }else {
-            pathSB.append("->");  // 当前节点不是叶子节点，继续递归遍历
-            helper(root.left, pathSB.toString());
-            helper(root.right, pathSB.toString());
-        }
+        helper(root.left);
+        list.add(root.val);
+        helper(root.right);
     }
 
     public static void main(String[] args) {
-        TreeNode root = new TreeNode(6);
-        root.left = new TreeNode(3);
-        //root.right = new TreeNode(5,new TreeNode(4),new TreeNode(2));
+        TreeNode root = new TreeNode(1);
+        //root.left = new TreeNode(3,null,new TreeNode(2,null,new TreeNode(1)));
+        root.right = new TreeNode(5, new TreeNode(3),null);
         levelPrint(root);
-        List<String> list = binaryTreePaths(root);
-        for(String i : list){
-            System.out.println(i);
-        }
-        //System.out.print(list.size());
+        int S = getMinimumDifference(root);
+        System.out.println(S);
     }
 }

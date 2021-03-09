@@ -3,7 +3,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class LeetCode_Tree_257 {
+public class LeetCode_Tree_965 {
     public static class TreeNode{
         int val;
         TreeNode left;
@@ -50,40 +50,42 @@ public class LeetCode_Tree_257 {
         }
     }
 
-    public static List<String> binaryTreePaths(TreeNode root) {
-        if (root == null){
-            return list;
+    public static int sumRootToLeaf(TreeNode root) {
+        if(root == null){
+            return 0;
         }
         helper(root,new String());
-        return list;
+        return sumInt;
     }
 
     static List<String> list = new ArrayList<>();
-    public static void helper(TreeNode root,String sum) {
-        if (root == null){
+    static int sumInt = 0;
+    public static void helper(TreeNode root, String sum){
+        if(root == null){
             return;
         }
-        StringBuffer pathSB = new StringBuffer(sum);
-        pathSB.append(root.val);
+        StringBuilder mSum = new StringBuilder(sum);
+        mSum.append(root.val);
         if (root.left == null && root.right == null){
-            list.add(pathSB.toString());
+            sumInt = sumInt + BitToInt(mSum.toString());
             return;
-        }else {
-            pathSB.append("->");  // 当前节点不是叶子节点，继续递归遍历
-            helper(root.left, pathSB.toString());
-            helper(root.right, pathSB.toString());
+        }else{
+            //mSum.append("-");
+            helper(root.left,mSum.toString());
+            helper(root.right,mSum.toString());
         }
     }
 
+    public static int BitToInt(String s){
+        return Integer.parseInt(s,2);
+    }
+
+
     public static void main(String[] args) {
-        TreeNode root = new TreeNode(6);
-        root.left = new TreeNode(3);
-        //root.right = new TreeNode(5,new TreeNode(4),new TreeNode(2));
-        levelPrint(root);
-        List<String> list = binaryTreePaths(root);
-        for(String i : list){
-            System.out.println(i);
-        }
-        //System.out.print(list.size());
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(1);
+        //root.right = new TreeNode(1, new TreeNode(0),new TreeNode(1));
+        //levelPrint(root);
+        System.out.print(sumRootToLeaf(root));
     }
 }
