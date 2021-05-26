@@ -9,10 +9,6 @@ public class LeetCode_LinkedList_2 {
           ListNode(int val, ListNode next) { this.val = val; this.next = next; }
       }
 
-    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-
-    }
-
     public static void main(String[] args) {
 
     }
