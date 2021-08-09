@@ -1,5 +1,7 @@
 package Math;
 
+import java.util.ArrayList;
+
 public class LeetCode_Math_7 {
     public static int reverse(int x) {
         if (x == 0){
@@ -36,5 +38,10 @@ public class LeetCode_Math_7 {
 
     public static void main(String[] args) {
         //System.out.println(reverse(1233456789));
+        ArrayList<Integer> list = null;
+//        System.out.println(list.size());
+        for (int item : list){
+            System.out.println("---");
+        }
     }
 }
