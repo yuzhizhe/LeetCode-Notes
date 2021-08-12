@@ -39,18 +39,19 @@ public class LeetCode_DP_1143 {
         int length_1 = text1.length();
         int length_2 = text2.length();
         int pre = 0;
-        int[] dp = new int[ length_2 + 1];
+        int[] dp = new int[length_2+1];
         for (int i = 1; i <= length_1; i++){
             char I = text1.charAt(i-1);
             pre = 0;
             for (int j = 1; j <= length_2; j++){
                 char J = text2.charAt(j-1);
+                int tmp = dp[j];
                 if (I == J){
-                    dp[j] = dp[j-1] + 1;
+                    dp[j] = pre + 1;
                 }else{
-                    dp[j] = Math.max(pre, dp[j]);
+                    dp[j] = Math.max(dp[j-1], dp[j]);
                 }
-                pre = dp[j];
+                pre = tmp;
             }
         }
         return dp[length_2];
